@@ -34,20 +34,20 @@ namespace UsersApp.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+            /*if (env.IsDevelopment())
+            {*/
+            InitializeMigration(app);
 
-                app.UseCors("AllowAllOrigins");
+            //app.UseDeveloperExceptionPage();
 
-                InitializeMigration(app);
-            }
+            app.UseCors("AllowAllOrigins");
+            /*}
             else
-            {
-                app.UseHsts();
-            }
+            {*/
+            //app.UseHsts();
+            //}
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
         }
 

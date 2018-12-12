@@ -10,8 +10,8 @@ using UsersApp.EF.Context;
 namespace UsersApp.EF.Migrations
 {
     [DbContext(typeof(UsersContext))]
-    [Migration("20181211135818_Inital-migration")]
-    partial class Initalmigration
+    [Migration("20181211154144_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
