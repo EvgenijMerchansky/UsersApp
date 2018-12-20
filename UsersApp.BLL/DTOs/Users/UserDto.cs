@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using MessagePack.Formatters;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using UsersApp.BLL.DTOs.Products;
 
-namespace UsersApp.EF.Models
+namespace UsersApp.BLL.DTOs.Users
 {
-    public class User
+    public class UserDto
     {
         [JsonIgnore]
         public int Id { get; set; }
@@ -16,6 +14,6 @@ namespace UsersApp.EF.Models
 
         public string LastName { get; set; }
 
-        public List<Product> Products { get; set; }
+        public List<ProductDto> Products { get; set; }
     }
 }

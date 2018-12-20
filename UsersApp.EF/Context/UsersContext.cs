@@ -7,6 +7,8 @@ namespace UsersApp.EF.Context
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+
         public UsersContext(DbContextOptions<UsersContext> options)
             : base(options)
         {

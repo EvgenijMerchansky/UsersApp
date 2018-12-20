@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UsersApp.BLL.Configurations;
+using UsersApp.BLL.Contracts;
+using UsersApp.BLL.Services;
 using UsersApp.EF.Context;
+using UsersApp.EF.Repositories;
 using UsersApp.WebApi.Configurations;
 
 namespace UsersApp.WebApi
@@ -27,6 +32,18 @@ namespace UsersApp.WebApi
             services.AddDbContext<UsersContext>
             (options => options.UseSqlServer(connectionConfig.DefaultConnection,
                 builder => builder.MigrationsAssembly("UsersApp.EF")));
+
+            MapperConfiguration config = new MapperConfiguration(c =>
+            {
+                c.AddProfile<OrganizationProfile>();
+            });
+
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            
+
+            services.AddSingleton(c => config.CreateMapper());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
