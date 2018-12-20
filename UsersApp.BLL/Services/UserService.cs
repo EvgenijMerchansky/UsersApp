@@ -38,11 +38,15 @@ namespace UsersApp.BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<UserDto> GetUserAsync(
-            GetUserDto id, 
+        public async Task<UserDto> GetUserAsync(
+            GetUserDto getUser, 
             CancellationToken token = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            User user = await _userRepository.GetUserAsync(getUser.Id);
+
+            UserDto mappedUser = _mapper.Map<User, UserDto>(user);
+
+            return mappedUser;
         }
 
         public Task<UserDto> UpdateUserAsync(

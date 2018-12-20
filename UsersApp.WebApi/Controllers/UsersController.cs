@@ -17,18 +17,21 @@ namespace UsersApp.WebApi.Controllers
             _userService = userService;
         }
 
-        // GET: api/Users
+        //GET: api/Users
         [HttpGet]
+        [Route("list")]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(GetUserDto userId)
+        [HttpGet()]
+        public async Task<ActionResult<UserDto>> Get([FromQuery]GetUserDto getUser)
         {
-            return "value";
+            UserDto user = await _userService.GetUserAsync(getUser);
+
+            return user;
         }
 
         // POST: api/Users
