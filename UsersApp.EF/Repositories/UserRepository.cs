@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UsersApp.BLL.Services;
@@ -15,6 +17,13 @@ namespace UsersApp.EF.Repositories
         public UserRepository(UsersContext context)
         {
             _context = context;
+        }
+
+        public async Task<IEnumerable<User>> GetAllUsersAsync(CancellationToken token = default(CancellationToken))
+        {
+            IEnumerable<User> users = await _context.Users.ToListAsync();
+
+            return users;
         }
 
         public async Task<User> GetUserAsync(int id, CancellationToken token = default(CancellationToken))

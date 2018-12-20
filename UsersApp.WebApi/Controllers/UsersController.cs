@@ -20,9 +20,11 @@ namespace UsersApp.WebApi.Controllers
         //GET: api/Users
         [HttpGet]
         [Route("list")]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<UserDto>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            IEnumerable<UserDto> users = await _userService.GetAllUsersAsync();
+
+            return Ok(users);
         }
 
         // GET: api/Users/?id=5

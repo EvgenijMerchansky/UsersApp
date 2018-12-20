@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UsersApp.BLL.Contracts;
@@ -18,6 +20,18 @@ namespace UsersApp.BLL.Services
         {
             _mapper = mapper;
             _userRepository = userRepository;
+        }
+
+        public async Task<IEnumerable<UserDto>> GetAllUsersAsync(
+            CancellationToken token = default(CancellationToken))
+        {
+            IEnumerable<User> users = await _userRepository.GetAllUsersAsync();
+
+            IEnumerable<UserDto> mappedUsers = users.Select(x => 
+            _mapper.Map<User, UserDto>(x))
+            .ToList();
+
+            return mappedUsers;
         }
 
         public async Task<UserDto> GetUserAsync(

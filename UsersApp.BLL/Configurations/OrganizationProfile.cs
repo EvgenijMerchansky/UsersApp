@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
 using UsersApp.BLL.DTOs.Users;
 using UsersApp.EF.Models;
 
@@ -12,6 +13,7 @@ namespace UsersApp.BLL.Configurations
             CreateMap<CreateUserDto, User>();
             CreateMap<UpdateUserDto, User>();
             CreateMap<DeleteUserDto, User>();
+            CreateMap<IEnumerable<UserDto>, IEnumerable<User>>().ReverseMap();
         }
     }
 }
