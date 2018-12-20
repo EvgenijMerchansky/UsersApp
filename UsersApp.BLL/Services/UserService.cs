@@ -49,11 +49,13 @@ namespace UsersApp.BLL.Services
             return mappedUser;
         }
 
-        public Task<UserDto> UpdateUserAsync(
-            UserDto updUser, 
+        public async Task UpdateUserAsync(
+            UpdateUserDto updUser, 
             CancellationToken token = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            User mappedUser = _mapper.Map<UpdateUserDto, User>(updUser);
+
+            await _userRepository.UpdateUserAsync(mappedUser);
         }
     }
 }

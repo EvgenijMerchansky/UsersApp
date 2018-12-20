@@ -33,9 +33,15 @@ namespace UsersApp.EF.Repositories
 
         public async Task UpdateUserAsync(User updatedUser, CancellationToken token = default(CancellationToken))
         {
-            _context.Update(updatedUser);
+            User exUser = await GetUserAsync(updatedUser.Id);
 
-            await _context.SaveChangesAsync();
+            exUser.FirstName = updatedUser.FirstName;
+
+            exUser.LastName = updatedUser.LastName;
+
+            _context.Update(exUser);
+
+            await _context.SaveChangesAsync(token);
         }
 
         public async Task DeleteUserAsync(User user, CancellationToken token = default(CancellationToken))
@@ -43,6 +49,10 @@ namespace UsersApp.EF.Repositories
             _context.Remove(user);
 
             await _context.SaveChangesAsync(token);
+        }
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }

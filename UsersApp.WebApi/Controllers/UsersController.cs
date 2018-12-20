@@ -43,8 +43,9 @@ namespace UsersApp.WebApi.Controllers
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] UpdateUserDto value)
+        public async Task Put(int id, [FromBody] UpdateUserDto updateUser)
         {
+             await _userService.UpdateUserAsync(updateUser);
         }
 
         // DELETE: api/ApiWithActions/5

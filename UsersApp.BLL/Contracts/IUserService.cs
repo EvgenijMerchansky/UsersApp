@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using UsersApp.BLL.DTOs.Users;
 
@@ -17,8 +14,8 @@ namespace UsersApp.BLL.Contracts
             CreateUserDto user, 
             CancellationToken token = default(CancellationToken));
 
-        Task<UserDto> UpdateUserAsync(
-            UserDto updUser, 
+        Task UpdateUserAsync(
+            UpdateUserDto updUser, 
             CancellationToken token = default(CancellationToken));
 
         Task DeleteUserAsync(
