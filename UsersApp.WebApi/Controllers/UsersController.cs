@@ -25,7 +25,7 @@ namespace UsersApp.WebApi.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/Users/5
+        // GET: api/Users/?id=5
         [HttpGet()]
         public async Task<ActionResult<UserDto>> Get([FromQuery]GetUserDto getUser)
         {
@@ -36,22 +36,23 @@ namespace UsersApp.WebApi.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public async Task Post([FromBody] CreateUserDto user)
+        public async Task Post([FromBody]CreateUserDto user)
         {
             await _userService.CreateUserAsync(user);
         }
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] UpdateUserDto updateUser)
+        public async Task Put(int id, [FromBody]UpdateUserDto updateUser)
         {
-             await _userService.UpdateUserAsync(updateUser);
+             await _userService.UpdateUserAsync(id, updateUser);
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(DeleteUserDto userId)
+        // DELETE: api/Users/?id=5
+        [HttpDelete]
+        public async Task Delete([FromQuery]DeleteUserDto deleteUser)
         {
+            await _userService.DeleteUserAsync(deleteUser);
         }
     }
 }

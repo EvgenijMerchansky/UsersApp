@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using UsersApp.EF.Models;
 
@@ -18,6 +15,7 @@ namespace UsersApp.BLL.Services
             CancellationToken token = default(CancellationToken));
 
         Task UpdateUserAsync(
+            int id,
             User updatedUser, 
             CancellationToken token = default(CancellationToken));
 

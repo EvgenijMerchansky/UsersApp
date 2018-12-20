@@ -11,6 +11,7 @@ namespace UsersApp.BLL.Configurations
             CreateMap<UserDto, User>().ReverseMap();
             CreateMap<CreateUserDto, User>();
             CreateMap<UpdateUserDto, User>();
+            CreateMap<DeleteUserDto, User>();
         }
     }
 }

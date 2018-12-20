@@ -20,6 +20,17 @@ namespace UsersApp.BLL.Services
             _userRepository = userRepository;
         }
 
+        public async Task<UserDto> GetUserAsync(
+            GetUserDto getUser,
+            CancellationToken token = default(CancellationToken))
+        {
+            User user = await _userRepository.GetUserAsync(getUser.Id);
+
+            UserDto mappedUser = _mapper.Map<User, UserDto>(user);
+
+            return mappedUser;
+        }
+
         public async Task CreateUserAsync(
             CreateUserDto user, 
             CancellationToken token = default(CancellationToken))
@@ -31,31 +42,23 @@ namespace UsersApp.BLL.Services
             await _userRepository.CreateUserAsync(mappedUser, token);
         }
 
-        public Task DeleteUserAsync(
-            GetUserDto id, 
-            CancellationToken token = default(CancellationToken))
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<UserDto> GetUserAsync(
-            GetUserDto getUser, 
-            CancellationToken token = default(CancellationToken))
-        {
-            User user = await _userRepository.GetUserAsync(getUser.Id);
-
-            UserDto mappedUser = _mapper.Map<User, UserDto>(user);
-
-            return mappedUser;
-        }
-
         public async Task UpdateUserAsync(
+            int id,
             UpdateUserDto updUser, 
             CancellationToken token = default(CancellationToken))
         {
             User mappedUser = _mapper.Map<UpdateUserDto, User>(updUser);
 
-            await _userRepository.UpdateUserAsync(mappedUser);
+            await _userRepository.UpdateUserAsync(id, mappedUser);
+        }
+
+        public async Task DeleteUserAsync(
+            DeleteUserDto deleteUser,
+            CancellationToken token = default(CancellationToken))
+        {
+            User mappedUser = _mapper.Map<DeleteUserDto, User>(deleteUser);
+
+            await _userRepository.DeleteUserAsync(mappedUser);
         }
     }
 }
