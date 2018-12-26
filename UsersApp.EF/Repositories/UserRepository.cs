@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,35 +8,34 @@ using UsersApp.EF.Models;
 
 namespace UsersApp.EF.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository<int, User, UsersContext>, IUserRepository
     {
         // should be refactored (moved to generic (base) repository).
-        private readonly UsersContext _context;
+        //private readonly UsersContext _context;
 
-        public UserRepository(UsersContext context)
+        public UserRepository(UsersContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync(CancellationToken token = default(CancellationToken))
         {
-            IEnumerable<User> users = await _context.Users.ToListAsync();
+            IEnumerable<User> users = await DbContext.Users.ToListAsync();
 
             return users;
         }
 
         public async Task<User> GetUserAsync(int id, CancellationToken token = default(CancellationToken))
         {
-            User user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id, token);
+            User user = await DbContext.Users.FirstOrDefaultAsync(x => x.Id == id, token);
 
             return user;
         }
 
         public async Task CreateUserAsync(User user, CancellationToken token = default(CancellationToken))
         {
-            await _context.Users.AddAsync(user);
+            await DbContext.Users.AddAsync(user);
 
-            await _context.SaveChangesAsync(token);
+            await DbContext.SaveChangesAsync(token);
         }
 
         public async Task UpdateUserAsync(int id, User updatedUser, CancellationToken token = default(CancellationToken))
@@ -48,22 +46,23 @@ namespace UsersApp.EF.Repositories
 
             exUser.LastName = updatedUser.LastName;
 
-            _context.Update(exUser);
+            DbContext.Update(exUser);
 
-            await _context.SaveChangesAsync(token);
+            await DbContext.SaveChangesAsync(token);
         }
 
         public async Task DeleteUserAsync(User user, CancellationToken token = default(CancellationToken))
         {
             User deleteUser = await GetUserAsync(user.Id);
 
-            _context.Users.Remove(deleteUser);
+            DbContext.Users.Remove(deleteUser);
 
-            await _context.SaveChangesAsync(token);
+            await DbContext.SaveChangesAsync(token);
         }
+
         public void Dispose()
         {
-            _context.Dispose();
+            DbContext.Dispose();
         }
     }
 }

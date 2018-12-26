@@ -5,12 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 using UsersApp.BLL.Configurations;
 using UsersApp.BLL.Contracts;
 using UsersApp.BLL.Services;
 using UsersApp.EF.Context;
+using UsersApp.EF.Interfaces;
 using UsersApp.EF.Repositories;
 using UsersApp.WebApi.Configurations;
+using UsersApp.WebApi.Middlewares;
 
 namespace UsersApp.WebApi
 {
@@ -29,42 +32,52 @@ namespace UsersApp.WebApi
             Configuration.Bind("ConnectionStrings", connectionConfig);
             services.AddSingleton(connectionConfig);
 
-            services.AddDbContext<UsersContext>
-            (options => options.UseSqlServer(connectionConfig.DefaultConnection,
-                builder => builder.MigrationsAssembly("UsersApp.EF")));
+            ConfigureDatabase(services, connectionConfig);
 
             MapperConfiguration config = new MapperConfiguration(c =>
             {
                 c.AddProfile<OrganizationProfile>();
             });
 
+            services.AddSingleton(c => config.CreateMapper());
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
-            
 
-            services.AddSingleton(c => config.CreateMapper());
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new Info { Title = "UsersApp public API", Version = "v1" });
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+        }
+
+        public virtual void ConfigureDatabase(IServiceCollection services, ConnectionConfig connectionConfig)
+        {
+            services.AddDbContext<UsersContext>
+            (options => options.UseSqlServer(connectionConfig.DefaultConnection,
+                builder => builder.MigrationsAssembly("UsersApp.EF")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            /*if (env.IsDevelopment())
-            {*/
             InitializeMigration(app);
 
-            //app.UseDeveloperExceptionPage();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(x => 
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "UsersApp API (v1).");
+            });
 
             app.UseCors("AllowAllOrigins");
-            /*}
-            else
-            {*/
-            //app.UseHsts();
-            //}
 
-            //app.UseHttpsRedirection();
             app.UseMvc();
         }
 

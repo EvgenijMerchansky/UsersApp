@@ -6,26 +6,30 @@ using System.Threading;
 using System.Threading.Tasks;
 using UsersApp.BLL.Contracts;
 using UsersApp.BLL.DTOs.Users;
+using UsersApp.EF.Interfaces;
 using UsersApp.EF.Models;
 
 namespace UsersApp.BLL.Services
 {
-    public class UserService : IUserService
+    public class UserService : IUserService, IDisposable
     {
         private readonly IUserRepository _userRepository;
 
+        private readonly IUnitOfWork _unitOfWork;
+
         private readonly IMapper _mapper;
 
-        public UserService(IMapper mapper, IUserRepository userRepository)
+        public UserService(IMapper mapper, IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsersAsync(
             CancellationToken token = default(CancellationToken))
         {
-            IEnumerable<User> users = await _userRepository.GetAllUsersAsync();
+            IEnumerable<User> users = await _unitOfWork.UserRepository.GetAllUsersAsync();
 
             IEnumerable<UserDto> mappedUsers = users.Select(x => 
             _mapper.Map<User, UserDto>(x))
@@ -38,22 +42,31 @@ namespace UsersApp.BLL.Services
             GetUserDto getUser,
             CancellationToken token = default(CancellationToken))
         {
-            User user = await _userRepository.GetUserAsync(getUser.Id);
+            User user = await _unitOfWork.UserRepository.GetUserAsync(getUser.Id);
 
             UserDto mappedUser = _mapper.Map<User, UserDto>(user);
 
             return mappedUser;
         }
 
-        public async Task CreateUserAsync(
+        public async Task<bool> CreateUserAsync(
             CreateUserDto user, 
             CancellationToken token = default(CancellationToken))
         {
             // some info logger
 
-            User mappedUser = _mapper.Map<CreateUserDto, User>(user);
+            if (user.FirstName != null &&
+                user.LastName != null &&
+                user.Products != null &&
+                user.Email != null)
+            {
+                User mappedUser = _mapper.Map<CreateUserDto, User>(user);
 
-            await _userRepository.CreateUserAsync(mappedUser, token);
+                await _unitOfWork.UserRepository.CreateUserAsync(mappedUser, token);
+
+                return true;
+            }
+            return false;
         }
 
         public async Task UpdateUserAsync(
@@ -63,7 +76,7 @@ namespace UsersApp.BLL.Services
         {
             User mappedUser = _mapper.Map<UpdateUserDto, User>(updUser);
 
-            await _userRepository.UpdateUserAsync(id, mappedUser);
+            await _unitOfWork.UserRepository.UpdateUserAsync(id, mappedUser);
         }
 
         public async Task DeleteUserAsync(
@@ -72,7 +85,12 @@ namespace UsersApp.BLL.Services
         {
             User mappedUser = _mapper.Map<DeleteUserDto, User>(deleteUser);
 
-            await _userRepository.DeleteUserAsync(mappedUser);
+            await _unitOfWork.UserRepository.DeleteUserAsync(mappedUser);
+        }
+
+        public void Dispose()
+        {
+            _unitOfWork.Dispose();
         }
     }
 }

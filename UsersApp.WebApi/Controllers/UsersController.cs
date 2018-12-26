@@ -19,7 +19,6 @@ namespace UsersApp.WebApi.Controllers
 
         //GET: api/Users
         [HttpGet]
-        [Route("list")]
         public async Task<ActionResult<IEnumerable<UserDto>>> Get()
         {
             IEnumerable<UserDto> users = await _userService.GetAllUsersAsync();
@@ -27,9 +26,9 @@ namespace UsersApp.WebApi.Controllers
             return Ok(users);
         }
 
-        // GET: api/Users/?id=5
-        [HttpGet()]
-        public async Task<ActionResult<UserDto>> Get([FromQuery]GetUserDto getUser)
+        // GET: api/Users/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDto>> Get([FromRoute]GetUserDto getUser)
         {
             UserDto user = await _userService.GetUserAsync(getUser);
 
@@ -38,9 +37,16 @@ namespace UsersApp.WebApi.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public async Task Post([FromBody]CreateUserDto user)
+        public async Task<IActionResult> Post([FromBody]CreateUserDto user)
         {
-            await _userService.CreateUserAsync(user);
+            bool result = await _userService.CreateUserAsync(user);
+
+            if (result)
+            {
+                return Ok();
+            }
+
+            return NotFound();
         }
 
         // PUT: api/Users/5
@@ -50,9 +56,9 @@ namespace UsersApp.WebApi.Controllers
              await _userService.UpdateUserAsync(id, updateUser);
         }
 
-        // DELETE: api/Users/?id=5
-        [HttpDelete]
-        public async Task Delete([FromQuery]DeleteUserDto deleteUser)
+        // DELETE: api/Users/5
+        [HttpDelete("{id}")]
+        public async Task Delete([FromRoute]DeleteUserDto deleteUser)
         {
             await _userService.DeleteUserAsync(deleteUser);
         }

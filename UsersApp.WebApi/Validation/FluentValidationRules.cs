@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace UsersApp.WebApi.Validation
 {
-    public class FluentValidation : ISchemaFilter
+    public class FluentValidationRules : ISchemaFilter
     {
         private readonly IValidatorFactory _validatorFactory;
 
@@ -17,7 +17,7 @@ namespace UsersApp.WebApi.Validation
 
         private readonly IReadOnlyList<FluentValidationRule> _rules;
 
-        FluentValidation(
+        FluentValidationRules(
             IValidatorFactory validatorFactory = null,
             IEnumerable<FluentValidationRule> rules = null,
             ILoggerFactory loggerFactory = null)
