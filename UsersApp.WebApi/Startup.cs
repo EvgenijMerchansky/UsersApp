@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ using UsersApp.EF.Interfaces;
 using UsersApp.EF.Repositories;
 using UsersApp.WebApi.Configurations;
 using UsersApp.WebApi.Middlewares;
+using UsersApp.WebApi.Validation;
 
 namespace UsersApp.WebApi
 {
@@ -50,9 +52,12 @@ namespace UsersApp.WebApi
             services.AddSwaggerGen(x =>
             {
                 x.SwaggerDoc("v1", new Info { Title = "UsersApp public API", Version = "v1" });
+                x.SchemaFilter<FluentValidationRules>();
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<FluentValidationRules>());
         }
 
         public virtual void ConfigureDatabase(IServiceCollection services, ConnectionConfig connectionConfig)

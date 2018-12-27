@@ -17,7 +17,7 @@ namespace UsersApp.WebApi.Validation
 
         private readonly IReadOnlyList<FluentValidationRule> _rules;
 
-        FluentValidationRules(
+        public FluentValidationRules(
             IValidatorFactory validatorFactory = null,
             IEnumerable<FluentValidationRule> rules = null,
             ILoggerFactory loggerFactory = null)

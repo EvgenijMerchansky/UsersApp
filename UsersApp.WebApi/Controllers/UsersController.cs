@@ -17,8 +17,12 @@ namespace UsersApp.WebApi.Controllers
             _userService = userService;
         }
 
-        //GET: api/Users
+        /// <summary>Get existing users list</summary>
+        /// <type>GET</type>
+        /// <example>api/Users</example>
+        /// <response code="200">Success</response>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<UserDto>), 200)]
         public async Task<ActionResult<IEnumerable<UserDto>>> Get()
         {
             IEnumerable<UserDto> users = await _userService.GetAllUsersAsync();
@@ -26,17 +30,29 @@ namespace UsersApp.WebApi.Controllers
             return Ok(users);
         }
 
-        // GET: api/Users/5
+        /// <summary>Get existing user</summary>
+        /// <type>GET</type>
+        /// <example>api/Users/5</example>
+        /// <response code="200">Success</response>
+        /// <response code="204">If user not found</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(UserDto), 200)]
+        [ProducesResponseType(204)]
         public async Task<ActionResult<UserDto>> Get([FromRoute]GetUserDto getUser)
         {
             UserDto user = await _userService.GetUserAsync(getUser);
 
-            return user;
+            return Ok(user);
         }
 
-        // POST: api/Users
+        /// <summary>Create new user</summary>
+        /// <type>POST</type>
+        /// <example>api/Users</example>
+        /// <response code="200">Success</response>
+        /// <response code="404">If data in the request body is wrong</response>
         [HttpPost]
+        [ProducesResponseType(typeof(IActionResult), 200)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> Post([FromBody]CreateUserDto user)
         {
             bool result = await _userService.CreateUserAsync(user);
@@ -49,15 +65,27 @@ namespace UsersApp.WebApi.Controllers
             return NotFound();
         }
 
-        // PUT: api/Users/5
+        /// <summary>Update current user's data</summary>
+        /// <type>PUT</type>
+        /// <example>api/Users/5</example>
+        /// <response code="200">Success</response>
+        /// <response code="404">If data in the request body is wrong</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(typeof(IActionResult), 200)]
+        [ProducesResponseType(404)]
         public async Task Put(int id, [FromBody]UpdateUserDto updateUser)
         {
              await _userService.UpdateUserAsync(id, updateUser);
         }
 
-        // DELETE: api/Users/5
+        /// <summary>Delete existing user</summary>
+        /// <type>DELETE</type>
+        /// <example>api/Users/5</example>
+        /// <response code="200">Success</response>
+        /// <response code="400">If existing user not found</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task Delete([FromRoute]DeleteUserDto deleteUser)
         {
             await _userService.DeleteUserAsync(deleteUser);
