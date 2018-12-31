@@ -11,11 +11,11 @@ namespace UsersApp.BLL.Contracts
             CancellationToken token = default(CancellationToken));
 
         Task<UserDto> GetUserAsync(
-            GetUserDto id, 
+            GetUserDto id,
             CancellationToken token = default(CancellationToken));
 
         Task<bool> CreateUserAsync(
-            CreateUserDto user, 
+            CreateUserDto user,
             CancellationToken token = default(CancellationToken));
 
         Task UpdateUserAsync(
@@ -24,7 +24,7 @@ namespace UsersApp.BLL.Contracts
             CancellationToken token = default(CancellationToken));
 
         Task DeleteUserAsync(
-            DeleteUserDto id, 
+            DeleteUserDto id,
             CancellationToken token = default(CancellationToken));
     }
 }

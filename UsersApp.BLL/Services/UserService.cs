@@ -31,7 +31,7 @@ namespace UsersApp.BLL.Services
         {
             IEnumerable<User> users = await _unitOfWork.UserRepository.GetAllUsersAsync();
 
-            IEnumerable<UserDto> mappedUsers = users.Select(x => 
+            IEnumerable<UserDto> mappedUsers = users.Select(x =>
             _mapper.Map<User, UserDto>(x))
             .ToList();
 
@@ -50,11 +50,9 @@ namespace UsersApp.BLL.Services
         }
 
         public async Task<bool> CreateUserAsync(
-            CreateUserDto user, 
+            CreateUserDto user,
             CancellationToken token = default(CancellationToken))
         {
-            // some info logger
-
             if (user.FirstName != null &&
                 user.LastName != null &&
                 user.Products != null &&
@@ -66,12 +64,13 @@ namespace UsersApp.BLL.Services
 
                 return true;
             }
+
             return false;
         }
 
         public async Task UpdateUserAsync(
             int id,
-            UpdateUserDto updUser, 
+            UpdateUserDto updUser,
             CancellationToken token = default(CancellationToken))
         {
             User mappedUser = _mapper.Map<UpdateUserDto, User>(updUser);

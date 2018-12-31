@@ -13,6 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.Tests", "UsersApp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.BLL", "UsersApp.BLL\UsersApp.BLL.csproj", "{24453BA8-3C3A-42B2-8990-DE0EE044E731}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rulesets", "Rulesets", "{DE85CF3F-C491-499E-A153-E1BFCD347B7D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\[SS]\Vivint.IO.SalesPlatform.PoC\Rulesets\Rules.ruleset = ..\..\[SS]\Vivint.IO.SalesPlatform.PoC\Rulesets\Rules.ruleset
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersApp.WebApi.AzureFunctions", "UsersApp.WebApi.AzureFunctions\UsersApp.WebApi.AzureFunctions.csproj", "{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +46,10 @@ Global
 		{24453BA8-3C3A-42B2-8990-DE0EE044E731}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24453BA8-3C3A-42B2-8990-DE0EE044E731}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24453BA8-3C3A-42B2-8990-DE0EE044E731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
