@@ -86,7 +86,5 @@ namespace UsersApp.BLL.Services
         {
             _unitOfWork.Dispose();
         }
-
-        
     }
 }

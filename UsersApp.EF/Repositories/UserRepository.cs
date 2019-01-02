@@ -26,7 +26,7 @@ namespace UsersApp.EF.Repositories
 
         public async Task<User> GetUserAsync(int id, CancellationToken token = default(CancellationToken))
         {
-            User user = await DbContext.Users.FirstOrDefaultAsync(x => x.Id == id, token);
+            User user = await GetAsync(id, token);
 
             return user;
         }
