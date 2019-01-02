@@ -34,10 +34,10 @@ namespace UsersApp.WebApi.Controllers
         /// <type>GET</type>
         /// <example>api/Users/5</example>
         /// <response code="200">Success</response>
-        /// <response code="204">If user not found</response>
+        /// <response code="400">If user not found</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(UserDto), 200)]
-        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<UserDto>> Get([FromRoute]GetUserDto getUser)
         {
             UserDto user = await _userService.GetUserAsync(getUser);
