@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
-using UsersApp.EF.Interfaces;
+using UsersApp.DAL;
 
 namespace UsersApp.EF.Repositories
 {

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using MessagePack.Formatters;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace UsersApp.EF.Models
+namespace UsersApp.DAL.Models
 {
     public class User
     {
@@ -16,6 +14,6 @@ namespace UsersApp.EF.Models
 
         public string LastName { get; set; }
 
-        public List<Product> Products { get; set; }
+        public virtual IEnumerable<Product> Products { get; set; }
     }
 }

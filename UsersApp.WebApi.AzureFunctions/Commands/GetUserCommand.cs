@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using AzureFromTheTrenches.Commanding.Abstractions;
 using System.Collections.Generic;
 using UsersApp.BLL.DTOs.Products;
+using UsersApp.BLL.DTOs.Users;
 
-namespace UsersApp.BLL.DTOs.Users
+namespace UsersApp.WebApi.AzureFunctions.Commands
 {
-    public class UserDto
+    public class GetUserCommand : ICommand<UserDto>
     {
         public int Id { get; set; }
 

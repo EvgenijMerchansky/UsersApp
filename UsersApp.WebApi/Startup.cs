@@ -10,8 +10,9 @@ using Swashbuckle.AspNetCore.Swagger;
 using UsersApp.BLL.Configurations;
 using UsersApp.BLL.Contracts;
 using UsersApp.BLL.Services;
+using UsersApp.BLL.Validation;
+using UsersApp.DAL;
 using UsersApp.EF.Context;
-using UsersApp.EF.Interfaces;
 using UsersApp.EF.Repositories;
 using UsersApp.WebApi.Configurations;
 using UsersApp.WebApi.Middlewares;
@@ -30,6 +31,7 @@ namespace UsersApp.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             ConnectionConfig connectionConfig = new ConnectionConfig();
             Configuration.Bind("ConnectionStrings", connectionConfig);
             services.AddSingleton(connectionConfig);
@@ -57,7 +59,10 @@ namespace UsersApp.WebApi
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<FluentValidationRules>());
+                .AddFluentValidation(fv => 
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<GetUserValidator>();
+                });
         }
 
         public virtual void ConfigureDatabase(IServiceCollection services, ConnectionConfig connectionConfig)

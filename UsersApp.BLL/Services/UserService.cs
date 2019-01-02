@@ -6,8 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using UsersApp.BLL.Contracts;
 using UsersApp.BLL.DTOs.Users;
-using UsersApp.EF.Interfaces;
-using UsersApp.EF.Models;
+using UsersApp.DAL;
+using UsersApp.DAL.Models;
 
 namespace UsersApp.BLL.Services
 {
@@ -49,23 +49,13 @@ namespace UsersApp.BLL.Services
             return mappedUser;
         }
 
-        public async Task<bool> CreateUserAsync(
+        public async Task CreateUserAsync(
             CreateUserDto user,
             CancellationToken token = default(CancellationToken))
         {
-            if (user.FirstName != null &&
-                user.LastName != null &&
-                user.Products != null &&
-                user.Email != null)
-            {
-                User mappedUser = _mapper.Map<CreateUserDto, User>(user);
+            User mappedUser = _mapper.Map<CreateUserDto, User>(user);
 
-                await _unitOfWork.UserRepository.CreateUserAsync(mappedUser, token);
-
-                return true;
-            }
-
-            return false;
+            await _unitOfWork.UserRepository.CreateUserAsync(mappedUser, token);
         }
 
         public async Task UpdateUserAsync(
@@ -87,9 +77,16 @@ namespace UsersApp.BLL.Services
             await _unitOfWork.UserRepository.DeleteUserAsync(mappedUser);
         }
 
+        public async Task<bool> UserExistsAsync(int id, CancellationToken token = default(CancellationToken))
+        {
+            return await _unitOfWork.UserRepository.UserExistsAsync(id);
+        }
+
         public void Dispose()
         {
             _unitOfWork.Dispose();
         }
+
+        
     }
 }

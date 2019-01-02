@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UsersApp.EF.Models;
+using UsersApp.DAL.Models;
 
 namespace UsersApp.EF.Context
 {
@@ -16,6 +16,10 @@ namespace UsersApp.EF.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasMany(x => x.Products);
+
+            modelBuilder.Entity<Product>().HasMany(x => x.Users);
+
             BuildUserModel(modelBuilder);
         }
 

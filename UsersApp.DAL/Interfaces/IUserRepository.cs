@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using UsersApp.EF.Models;
+using UsersApp.DAL.Models;
 
-namespace UsersApp.BLL.Services
+namespace UsersApp.DAL
 {
     public interface IUserRepository
     {
@@ -11,7 +11,7 @@ namespace UsersApp.BLL.Services
             CancellationToken token = default(CancellationToken));
 
         Task<User> GetUserAsync(
-            int id, 
+            int id,
             CancellationToken token = default(CancellationToken));
 
         Task CreateUserAsync(
@@ -20,11 +20,15 @@ namespace UsersApp.BLL.Services
 
         Task UpdateUserAsync(
             int id,
-            User updatedUser, 
+            User updatedUser,
             CancellationToken token = default(CancellationToken));
 
         Task DeleteUserAsync(
             User user,
             CancellationToken token = default(CancellationToken));
+
+        Task<bool> UserExistsAsync(
+            int id,
+            CancellationToken ct = default(CancellationToken));
     }
 }

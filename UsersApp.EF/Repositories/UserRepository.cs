@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using UsersApp.BLL.Services;
 using UsersApp.EF.Context;
-using UsersApp.EF.Models;
+using UsersApp.DAL.Models;
+using UsersApp.DAL;
 
 namespace UsersApp.EF.Repositories
 {
@@ -58,6 +58,11 @@ namespace UsersApp.EF.Repositories
             DbContext.Users.Remove(deleteUser);
 
             await DbContext.SaveChangesAsync(token);
+        }
+
+        public async Task<bool> UserExistsAsync(int id, CancellationToken ct = default(CancellationToken))
+        {
+            return await DbContext.Users.AnyAsync(p => p.Id == id, ct);
         }
 
         public void Dispose()

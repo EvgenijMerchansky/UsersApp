@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
 using UsersApp.BLL.DTOs.Users;
-using UsersApp.EF.Models;
+using UsersApp.DAL.Models;
 
 namespace UsersApp.BLL.Configurations
 {

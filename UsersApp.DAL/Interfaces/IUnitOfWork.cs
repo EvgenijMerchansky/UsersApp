@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using UsersApp.BLL.Services;
 
-namespace UsersApp.EF.Interfaces
+namespace UsersApp.DAL
 {
     public interface IUnitOfWork : IDisposable
     {

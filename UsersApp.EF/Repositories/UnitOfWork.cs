@@ -1,8 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using UsersApp.BLL.Services;
 using UsersApp.EF.Context;
-using UsersApp.EF.Interfaces;
+using UsersApp.DAL;
 
 namespace UsersApp.EF.Repositories
 {
@@ -13,7 +12,7 @@ namespace UsersApp.EF.Repositories
         private readonly UsersContext _usersContext;
 
         public UnitOfWork(
-            IUserRepository userRepository, 
+            IUserRepository userRepository,
             UsersContext context)
         {
             _usersContext = context;

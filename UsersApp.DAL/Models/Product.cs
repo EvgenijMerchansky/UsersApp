@@ -1,7 +1,7 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace UsersApp.EF.Models
+namespace UsersApp.DAL.Models
 {
     public class Product
     {
@@ -13,5 +13,7 @@ namespace UsersApp.EF.Models
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public virtual IEnumerable<User> Users { get; set; }
     }
 }

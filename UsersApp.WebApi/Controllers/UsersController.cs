@@ -23,11 +23,11 @@ namespace UsersApp.WebApi.Controllers
         /// <response code="200">Success</response>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<UserDto>), 200)]
-        public async Task<ActionResult<IEnumerable<UserDto>>> Get()
+        public async Task<IEnumerable<UserDto>> Get()
         {
             IEnumerable<UserDto> users = await _userService.GetAllUsersAsync();
 
-            return Ok(users);
+            return users;
         }
 
         /// <summary>Get existing user</summary>
@@ -53,16 +53,9 @@ namespace UsersApp.WebApi.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(IActionResult), 200)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> Post([FromBody]CreateUserDto user)
+        public async Task Post([FromBody]CreateUserDto user)
         {
-            bool result = await _userService.CreateUserAsync(user);
-
-            if (result)
-            {
-                return Ok();
-            }
-
-            return NotFound();
+            await _userService.CreateUserAsync(user);
         }
 
         /// <summary>Update current user's data</summary>
