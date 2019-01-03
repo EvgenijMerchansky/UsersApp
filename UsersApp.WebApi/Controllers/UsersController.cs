@@ -49,10 +49,10 @@ namespace UsersApp.WebApi.Controllers
         /// <type>POST</type>
         /// <example>api/Users</example>
         /// <response code="200">Success</response>
-        /// <response code="404">If data in the request body is wrong</response>
+        /// <response code="400">If data in the request body is wrong</response>
         [HttpPost]
         [ProducesResponseType(typeof(IActionResult), 200)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
         public async Task Post([FromBody]CreateUserDto user)
         {
             await _userService.CreateUserAsync(user);
@@ -62,10 +62,10 @@ namespace UsersApp.WebApi.Controllers
         /// <type>PUT</type>
         /// <example>api/Users/5</example>
         /// <response code="200">Success</response>
-        /// <response code="404">If data in the request body is wrong</response>
+        /// <response code="400">If data in the request body is wrong</response>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(IActionResult), 200)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
         public async Task Put(int id, [FromBody]UpdateUserDto updateUser)
         {
              await _userService.UpdateUserAsync(id, updateUser);

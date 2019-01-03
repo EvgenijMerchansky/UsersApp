@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,27 +14,32 @@ namespace UsersApp.BLL.Services
 {
     public class UserService : IUserService, IDisposable
     {
-        private readonly IUserRepository _userRepository;
-
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<UserService> _log;
 
         private readonly IMapper _mapper;
 
-        public UserService(IMapper mapper, IUserRepository userRepository, IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public UserService(
+            ILogger<UserService> log,
+            IMapper mapper,
+            IUnitOfWork unitOfWork)
         {
+            _log = log;
             _mapper = mapper;
-            _userRepository = userRepository;
             _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsersAsync(
             CancellationToken token = default(CancellationToken))
         {
-            IEnumerable<User> users = await _unitOfWork.UserRepository.GetAllUsersAsync();
+            _log.LogInformation("Get all users at: {datetime}", DateTime.UtcNow);
+
+            IEnumerable<User> users = await _unitOfWork.UserRepository.GetAll(token);
 
             IEnumerable<UserDto> mappedUsers = users.Select(x =>
-            _mapper.Map<User, UserDto>(x))
-            .ToList();
+                _mapper.Map<User, UserDto>(x))
+                .ToList();
 
             return mappedUsers;
         }
@@ -42,20 +48,42 @@ namespace UsersApp.BLL.Services
             GetUserDto getUser,
             CancellationToken token = default(CancellationToken))
         {
-            User user = await _unitOfWork.UserRepository.GetUserAsync(getUser.Id);
+            try
+            {
+                _log.LogInformation("Get user by Id={userId}", getUser.Id);
 
-            UserDto mappedUser = _mapper.Map<User, UserDto>(user);
+                User user = await _unitOfWork.UserRepository.GetAsync(getUser.Id, token);
 
-            return mappedUser;
+                UserDto mappedUser = _mapper.Map<User, UserDto>(user);
+
+                return mappedUser;
+            }
+            catch (Exception e)
+            {
+                _log.LogError(e, "Failed to get user by Id");
+                throw;
+            }
         }
 
         public async Task CreateUserAsync(
             CreateUserDto user,
             CancellationToken token = default(CancellationToken))
         {
-            User mappedUser = _mapper.Map<CreateUserDto, User>(user);
+            try
+            {
+                _log.LogInformation("Creating new user {FirstName} has started", user.FirstName);
 
-            await _unitOfWork.UserRepository.CreateUserAsync(mappedUser, token);
+                User mappedUser = _mapper.Map<CreateUserDto, User>(user);
+
+                await _unitOfWork.UserRepository.CreateAsync(mappedUser, token);
+
+                await _unitOfWork.CommitAsync(token);
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e, "Failed to create new user");
+                throw;
+            }
         }
 
         public async Task UpdateUserAsync(
@@ -63,23 +91,55 @@ namespace UsersApp.BLL.Services
             UpdateUserDto updUser,
             CancellationToken token = default(CancellationToken))
         {
-            User mappedUser = _mapper.Map<UpdateUserDto, User>(updUser);
+            try
+            {
+                _log.LogInformation("Updating existing user {FirstName} has started", updUser.FirstName);
 
-            await _unitOfWork.UserRepository.UpdateUserAsync(id, mappedUser);
+                User mappedUser = _mapper.Map<UpdateUserDto, User>(updUser);
+
+                await _unitOfWork.UserRepository.Update(id, mappedUser);
+
+                await _unitOfWork.CommitAsync(token);
+            }
+            catch (Exception e)
+            {
+                _log.LogError(e, "Failed to update user");
+            }
         }
 
         public async Task DeleteUserAsync(
             DeleteUserDto deleteUser,
             CancellationToken token = default(CancellationToken))
         {
-            User mappedUser = _mapper.Map<DeleteUserDto, User>(deleteUser);
+            try
+            {
+                _log.LogInformation("Deleting existing user has started, user id={id}", deleteUser.Id);
 
-            await _unitOfWork.UserRepository.DeleteUserAsync(mappedUser);
+                User mappedUser = _mapper.Map<DeleteUserDto, User>(deleteUser);
+
+                await _unitOfWork.UserRepository.DeleteAsync(mappedUser.Id, token);
+
+                await _unitOfWork.CommitAsync(token);
+            }
+            catch (Exception e)
+            {
+                _log.LogError(e, "Failed to delete user");
+            }
         }
 
         public async Task<bool> UserExistsAsync(int id, CancellationToken token = default(CancellationToken))
         {
-            return await _unitOfWork.UserRepository.UserExistsAsync(id);
+            try
+            {
+                _log.LogInformation("Check if exists user with id={id} exists", id);
+
+                return await _unitOfWork.UserRepository.UserExistsAsync(id);
+            }
+            catch (Exception e)
+            {
+                _log.LogError(e, "Failed to get user by Id");
+                throw;
+            }
         }
 
         public void Dispose()

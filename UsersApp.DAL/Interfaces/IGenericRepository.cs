@@ -1,11 +1,28 @@
-﻿namespace UsersApp.DAL
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace UsersApp.DAL
 {
     public interface IGenericRepository<TId, TEntity>
         where TId : struct
         where TEntity : class
     {
-        /*Task<TEntity> GetAsync(TId id, CancellationToken ct = default(CancellationToken));
+        Task<IEnumerable<TEntity>> GetAll(
+            CancellationToken token = default(CancellationToken));
 
-        Task<IEnumerable<TEntity>> GetListAsync();*/
+        Task<TEntity> GetAsync(
+            TId id,
+            CancellationToken token = default(CancellationToken));
+
+        Task CreateAsync(
+            TEntity entity,
+            CancellationToken token = default(CancellationToken));
+
+        Task Update(TId id, TEntity entity);
+
+        Task DeleteAsync(
+            TId id,
+            CancellationToken token = default(CancellationToken));
     }
 }

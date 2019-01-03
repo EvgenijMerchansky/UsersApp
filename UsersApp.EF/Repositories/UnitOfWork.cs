@@ -12,8 +12,8 @@ namespace UsersApp.EF.Repositories
         private readonly UsersContext _usersContext;
 
         public UnitOfWork(
-            IUserRepository userRepository,
-            UsersContext context)
+            UsersContext context,
+            IUserRepository userRepository)
         {
             _usersContext = context;
             UserRepository = userRepository;

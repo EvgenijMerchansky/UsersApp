@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
+using UsersApp.BLL.Contracts;
 using UsersApp.BLL.DTOs.Users;
 
 namespace UsersApp.BLL.Validation
 {
     public class UpdateUserValidator : AbstractValidator<UpdateUserDto>
     {
-        public UpdateUserValidator()
+        public UpdateUserValidator(IUserService userService)
         {
             RuleFor(x => x.FirstName)
                 .NotNull()
@@ -15,6 +16,7 @@ namespace UsersApp.BLL.Validation
                 .NotNull()
                 .NotEmpty()
                 .MaximumLength(300);
+
         }
     }
 }
