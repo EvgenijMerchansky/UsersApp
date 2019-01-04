@@ -22,12 +22,13 @@ namespace UsersApp.WebApi
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-        
+
+        public IConfiguration Configuration { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -58,7 +59,7 @@ namespace UsersApp.WebApi
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddFluentValidation(fv => 
+                .AddFluentValidation(fv =>
                 {
                     fv.RegisterValidatorsFromAssemblyContaining<UpdateUserValidator>();
                     fv.ValidatorFactoryType = typeof(ScopedServiceProviderValidatorFactory);
@@ -67,8 +68,9 @@ namespace UsersApp.WebApi
 
         public virtual void ConfigureDatabase(IServiceCollection services, ConnectionConfig connectionConfig)
         {
-            services.AddDbContext<UsersContext>
-            (options => options.UseSqlServer(connectionConfig.DefaultConnection,
+            services.AddDbContext<UsersContext>(
+            options => options.UseSqlServer(
+                connectionConfig.DefaultConnection,
                 builder => builder.MigrationsAssembly("UsersApp.EF")));
         }
 
@@ -81,7 +83,7 @@ namespace UsersApp.WebApi
 
             app.UseSwagger();
 
-            app.UseSwaggerUI(x => 
+            app.UseSwaggerUI(x =>
             {
                 x.SwaggerEndpoint("/swagger/v1/swagger.json", "UsersApp API (v1).");
             });

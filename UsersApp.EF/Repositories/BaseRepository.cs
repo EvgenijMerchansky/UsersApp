@@ -11,12 +11,12 @@ namespace UsersApp.EF.Repositories
         where TContext : DbContext
         where TId : struct
     {
-        protected TContext DbContext { get; }
-
         public BaseRepository(TContext context)
         {
             DbContext = context;
         }
+
+        protected TContext DbContext { get; }
 
         public virtual async Task<IEnumerable<TEntity>> GetAll(
             CancellationToken token = default(CancellationToken))
@@ -48,7 +48,7 @@ namespace UsersApp.EF.Repositories
         }
 
         public virtual async Task DeleteAsync(
-            TId id, 
+            TId id,
             CancellationToken token = default(CancellationToken))
         {
             TEntity entity = await DbContext.FindAsync<TEntity>(id);

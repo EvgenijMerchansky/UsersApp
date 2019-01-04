@@ -7,8 +7,6 @@
 
     public class UnitOfWork : IUnitOfWork
     {
-        public IUserRepository UserRepository { get; }
-
         private readonly UsersContext _usersContext;
 
         public UnitOfWork(
@@ -18,6 +16,8 @@
             _usersContext = context;
             UserRepository = userRepository;
         }
+
+        public IUserRepository UserRepository { get; }
 
         public void Dispose()
         {
