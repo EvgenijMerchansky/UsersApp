@@ -1,10 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using UsersApp.EF.Context;
-using UsersApp.DAL;
-
-namespace UsersApp.EF.Repositories
+﻿namespace UsersApp.EF.Repositories
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using UsersApp.DAL;
+    using UsersApp.EF.Context;
+
     public class UnitOfWork : IUnitOfWork
     {
         public IUserRepository UserRepository { get; }

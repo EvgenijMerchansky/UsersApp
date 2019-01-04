@@ -46,76 +46,6 @@ namespace UsersApp.WebApi.Validation
             }
         }
 
-        /// <inheritdoc />
-        public void Apply(Schema schema, SchemaFilterContext context)
-        {
-            if (_validatorFactory == null)
-            {
-                _logger?.LogWarning(0, "ValidatorFactory is not provided. Please register FluentValidation.");
-                return;
-            }
-
-            IValidator validator = null;
-            try
-            {
-                validator = _validatorFactory.GetValidator(context.SystemType);
-            }
-            catch (Exception e)
-            {
-                _logger?.LogWarning(0, e, $"GetValidator for type '{context.SystemType}' fails.");
-            }
-
-            if (validator == null)
-            {
-                return;
-            }
-
-            ApplyRulesToSchema(schema, context, validator);
-
-            try
-            {
-                // Note: IValidatorDescriptor doesn't return IncludeRules so we need to get validators manually.
-                var includeRules = (validator as IEnumerable<IValidationRule>).NotNull().OfType<IncludeRule>();
-                var childAdapters = includeRules.SelectMany(includeRule => includeRule.Validators).OfType<ChildValidatorAdaptor>();
-                foreach (var adapter in childAdapters)
-                {
-                    var propertyValidatorContext = new PropertyValidatorContext(new ValidationContext(null), null, string.Empty);
-                    var includeValidator = adapter.GetValidator(propertyValidatorContext);
-                    ApplyRulesToSchema(schema, context, includeValidator);
-                }
-            }
-            catch (Exception e)
-            {
-                _logger?.LogWarning(0, e, $"Applying IncludeRules for type '{context.SystemType}' fails.");
-            }
-        }
-
-        private void ApplyRulesToSchema(Schema schema, SchemaFilterContext context, IValidator validator)
-        {
-            IValidatorDescriptor validatorDescriptor = validator.CreateDescriptor();
-
-            foreach (var key in schema?.Properties?.Keys ?? Array.Empty<string>())
-            {
-                foreach (var propertyValidator in validatorDescriptor.GetValidatorsForMemberIgnoreCase(key).NotNull())
-                {
-                    foreach (var rule in _rules)
-                    {
-                        if (rule.Matches(propertyValidator))
-                        {
-                            try
-                            {
-                                rule.Apply(new RuleContext(schema, context, key, propertyValidator));
-                            }
-                            catch (Exception e)
-                            {
-                                _logger?.LogWarning(0, e, $"Error on apply rule '{rule.Name}' for key '{key}'.");
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         /// <summary>
         /// Creates default rules.
         /// Can be overriden by name.
@@ -155,7 +85,7 @@ namespace UsersApp.WebApi.Validation
                     Apply = context =>
                     {
                         var lengthValidator = (ILengthValidator)context.PropertyValidator;
-                        if(lengthValidator.Max > 0)
+                        if (lengthValidator.Max > 0)
                         {
                             context.Schema.Properties[context.PropertyKey].MaxLength = lengthValidator.Max;
                         }
@@ -236,6 +166,76 @@ namespace UsersApp.WebApi.Validation
                     }
                 }
             };
+        }
+
+        /// <inheritdoc />
+        public void Apply(Schema schema, SchemaFilterContext context)
+        {
+            if (_validatorFactory == null)
+            {
+                _logger?.LogWarning(0, "ValidatorFactory is not provided. Please register FluentValidation.");
+                return;
+            }
+
+            IValidator validator = null;
+            try
+            {
+                validator = _validatorFactory.GetValidator(context.SystemType);
+            }
+            catch (Exception e)
+            {
+                _logger?.LogWarning(0, e, $"GetValidator for type '{context.SystemType}' fails.");
+            }
+
+            if (validator == null)
+            {
+                return;
+            }
+
+            ApplyRulesToSchema(schema, context, validator);
+
+            try
+            {
+                // Note: IValidatorDescriptor doesn't return IncludeRules so we need to get validators manually.
+                var includeRules = (validator as IEnumerable<IValidationRule>).NotNull().OfType<IncludeRule>();
+                var childAdapters = includeRules.SelectMany(includeRule => includeRule.Validators).OfType<ChildValidatorAdaptor>();
+                foreach (var adapter in childAdapters)
+                {
+                    var propertyValidatorContext = new PropertyValidatorContext(new ValidationContext(null), null, string.Empty);
+                    var includeValidator = adapter.GetValidator(propertyValidatorContext);
+                    ApplyRulesToSchema(schema, context, includeValidator);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger?.LogWarning(0, e, $"Applying IncludeRules for type '{context.SystemType}' fails.");
+            }
+        }
+
+        private void ApplyRulesToSchema(Schema schema, SchemaFilterContext context, IValidator validator)
+        {
+            IValidatorDescriptor validatorDescriptor = validator.CreateDescriptor();
+
+            foreach (var key in schema?.Properties?.Keys ?? Array.Empty<string>())
+            {
+                foreach (var propertyValidator in validatorDescriptor.GetValidatorsForMemberIgnoreCase(key).NotNull())
+                {
+                    foreach (var rule in _rules)
+                    {
+                        if (rule.Matches(propertyValidator))
+                        {
+                            try
+                            {
+                                rule.Apply(new RuleContext(schema, context, key, propertyValidator));
+                            }
+                            catch (Exception e)
+                            {
+                                _logger?.LogWarning(0, e, $"Error on apply rule '{rule.Name}' for key '{key}'.");
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

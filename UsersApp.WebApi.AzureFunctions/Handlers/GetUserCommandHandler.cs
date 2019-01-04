@@ -1,13 +1,13 @@
-using AzureFromTheTrenches.Commanding.Abstractions;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
+using AzureFromTheTrenches.Commanding.Abstractions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using UsersApp.WebApi.AzureFunctions.Commands;
 using UsersApp.BLL.DTOs.Users;
+using UsersApp.WebApi.AzureFunctions.Commands;
 
 namespace UsersApp.WebApi.AzureFunctions
 {

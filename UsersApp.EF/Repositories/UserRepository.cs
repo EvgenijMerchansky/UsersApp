@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
-using UsersApp.EF.Context;
-using UsersApp.DAL.Models;
-using UsersApp.DAL;
-
-namespace UsersApp.EF.Repositories
+﻿namespace UsersApp.EF.Repositories
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
+    using UsersApp.DAL;
+    using UsersApp.DAL.Models;
+    using UsersApp.EF.Context;
+
     public class UserRepository : BaseRepository<int, User, UsersContext>, IUserRepository
     {
         // should be refactored (moved to generic (base) repository).

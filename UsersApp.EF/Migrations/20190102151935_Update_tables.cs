@@ -2,7 +2,7 @@
 
 namespace UsersApp.EF.Migrations
 {
-    public partial class Update_tables : Migration
+    public partial class UpdateTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

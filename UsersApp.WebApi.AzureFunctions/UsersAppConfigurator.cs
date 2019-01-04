@@ -34,12 +34,8 @@ namespace UsersApp.WebApi.AzureFunctions
                 IConfiguration config = configurationBuilder.Build();
 
                 commandRegistry.Discover<UsersAppConfigurator>();
-
             }).AddFluentValidation()
-            .Functions(functions =>
-            {
-
-            });
+            .Functions(functions => { });
         }
     }
 }
