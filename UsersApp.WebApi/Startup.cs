@@ -61,6 +61,7 @@ namespace UsersApp.WebApi
                 .AddFluentValidation(fv => 
                 {
                     fv.RegisterValidatorsFromAssemblyContaining<GetUserValidator>();
+                    fv.ValidatorFactoryType = typeof(ScopedServiceProviderValidatorFactory);
                 });
         }
 

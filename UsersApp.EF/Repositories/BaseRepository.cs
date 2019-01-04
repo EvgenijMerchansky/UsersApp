@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,7 +41,7 @@ namespace UsersApp.EF.Repositories
                 .AddAsync(entity, token);
         }
 
-        public virtual async Task Update(TId id, TEntity entity)
+        public virtual void Update(TId id, TEntity entity)
         {
             DbContext.Set<TEntity>()
                 .Update(entity);

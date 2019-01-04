@@ -19,7 +19,7 @@ namespace UsersApp.DAL
             TEntity entity,
             CancellationToken token = default(CancellationToken));
 
-        Task Update(TId id, TEntity entity);
+        void Update(TId id, TEntity entity);
 
         Task DeleteAsync(
             TId id,

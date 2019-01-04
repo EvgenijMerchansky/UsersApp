@@ -10,6 +10,8 @@ namespace UsersApp.BLL.Configurations
         public OrganizationProfile()
         {
             CreateMap<UserDto, User>().ReverseMap();
+            CreateMap<User, User>().ReverseMap();
+            CreateMap<int, GetUserDto>();
             CreateMap<CreateUserDto, User>();
             CreateMap<UpdateUserDto, User>();
             CreateMap<DeleteUserDto, User>();

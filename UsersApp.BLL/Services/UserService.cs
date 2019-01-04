@@ -50,7 +50,7 @@ namespace UsersApp.BLL.Services
         {
             try
             {
-                _log.LogInformation("Get user by Id={userId}", getUser.Id);
+                _log.LogInformation("Get user by Id={id}", getUser.Id);
 
                 User user = await _unitOfWork.UserRepository.GetAsync(getUser.Id, token);
 
@@ -93,11 +93,15 @@ namespace UsersApp.BLL.Services
         {
             try
             {
-                _log.LogInformation("Updating existing user {FirstName} has started", updUser.FirstName);
+                _log.LogInformation("Updating existing user with id={id} has started", id);
 
                 User mappedUser = _mapper.Map<UpdateUserDto, User>(updUser);
 
-                await _unitOfWork.UserRepository.Update(id, mappedUser);
+                User exUser = await _unitOfWork.UserRepository.GetAsync(id);
+
+                User updatedUser = _mapper.Map(mappedUser, exUser);
+
+                _unitOfWork.UserRepository.Update(id, updatedUser);
 
                 await _unitOfWork.CommitAsync(token);
             }
@@ -113,7 +117,7 @@ namespace UsersApp.BLL.Services
         {
             try
             {
-                _log.LogInformation("Deleting existing user has started, user id={id}", deleteUser.Id);
+                _log.LogInformation("Deleting existing user with id={id} has started", deleteUser.Id);
 
                 User mappedUser = _mapper.Map<DeleteUserDto, User>(deleteUser);
 
