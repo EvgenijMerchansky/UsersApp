@@ -87,21 +87,23 @@ namespace UsersApp.BLL.Services
         }
 
         public async Task UpdateUserAsync(
-            int id,
+            GetUserDto userId,
             UpdateUserDto updUser,
             CancellationToken token = default(CancellationToken))
         {
             try
             {
-                _log.LogInformation("Updating existing user with id={id} has started", id);
+                _log.LogInformation("Updating existing user with id={id} has started", userId.Id);
 
                 User mappedUser = _mapper.Map<UpdateUserDto, User>(updUser);
 
-                User exUser = await _unitOfWork.UserRepository.GetAsync(id);
+                User exUser = await _unitOfWork.UserRepository.GetAsync(userId.Id);
 
                 User updatedUser = _mapper.Map(mappedUser, exUser);
 
-                _unitOfWork.UserRepository.Update(id, updatedUser);
+                updatedUser.Id = userId.Id;
+
+                _unitOfWork.UserRepository.Update(userId.Id, updatedUser);
 
                 await _unitOfWork.CommitAsync(token);
             }

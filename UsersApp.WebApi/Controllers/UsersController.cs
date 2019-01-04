@@ -66,9 +66,9 @@ namespace UsersApp.WebApi.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(IActionResult), 200)]
         [ProducesResponseType(400)]
-        public async Task Put(int id, [FromBody]UpdateUserDto updateUser)
+        public async Task Put([FromRoute]GetUserDto userId, [FromBody]UpdateUserDto updateUser)
         {
-             await _userService.UpdateUserAsync(id, updateUser);
+             await _userService.UpdateUserAsync(userId, updateUser);
         }
 
         /// <summary>Delete existing user</summary>

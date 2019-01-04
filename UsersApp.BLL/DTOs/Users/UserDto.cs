@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UsersApp.BLL.DTOs.Products;
 
 namespace UsersApp.BLL.DTOs.Users

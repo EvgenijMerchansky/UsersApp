@@ -60,7 +60,7 @@ namespace UsersApp.WebApi
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(fv => 
                 {
-                    fv.RegisterValidatorsFromAssemblyContaining<GetUserValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<UpdateUserValidator>();
                     fv.ValidatorFactoryType = typeof(ScopedServiceProviderValidatorFactory);
                 });
         }

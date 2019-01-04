@@ -19,7 +19,7 @@ namespace UsersApp.BLL.Contracts
             CancellationToken token = default(CancellationToken));
 
         Task UpdateUserAsync(
-            int id,
+            GetUserDto userId,
             UpdateUserDto updUser,
             CancellationToken token = default(CancellationToken));
 

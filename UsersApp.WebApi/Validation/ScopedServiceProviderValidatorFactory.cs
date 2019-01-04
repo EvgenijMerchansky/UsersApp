@@ -18,17 +18,10 @@ namespace UsersApp.WebApi.Validation
         [DebuggerStepThrough]
         public override IValidator CreateInstance(Type validatorType)
         {
-            try
+            using (_serviceProvider.CreateScope())
             {
-                return _serviceProvider.GetService(validatorType) as IValidator;
-            }
-            catch (InvalidOperationException)
-            {
-                using (_serviceProvider.CreateScope())
-                {
-                    return _serviceProvider.CreateScope()
-                        .ServiceProvider.GetService(validatorType) as IValidator;
-                }
+                return _serviceProvider.CreateScope()
+                    .ServiceProvider.GetService(validatorType) as IValidator;
             }
         }
     }
