@@ -11,6 +11,6 @@ namespace UsersApp.BLL.DTOs.Users
 
         public string LastName { get; set; }
 
-        public List<ProductDto> Products { get; set; }
+        public IEnumerable<ProductDto> Products { get; set; }
     }
 }

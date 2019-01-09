@@ -37,9 +37,8 @@ namespace UsersApp.BLL.Services
 
             IEnumerable<User> users = await _unitOfWork.UserRepository.GetAll(token);
 
-            IEnumerable<UserDto> mappedUsers = users.Select(x =>
-                _mapper.Map<User, UserDto>(x))
-                .ToList();
+            IEnumerable<UserDto> mappedUsers = _mapper
+                .Map<IEnumerable<UserDto>>(users);
 
             return mappedUsers;
         }
@@ -65,7 +64,7 @@ namespace UsersApp.BLL.Services
             }
         }
 
-        public async Task CreateUserAsync(
+        public async Task<UserDto> CreateUserAsync(
             CreateUserDto user,
             CancellationToken token = default(CancellationToken))
         {
@@ -73,11 +72,13 @@ namespace UsersApp.BLL.Services
             {
                 _log.LogInformation("Creating new user {FirstName} has started", user.FirstName);
 
-                User mappedUser = _mapper.Map<CreateUserDto, User>(user);
+                User mappedUser = _mapper.Map<User>(user);
 
                 await _unitOfWork.UserRepository.CreateAsync(mappedUser, token);
 
                 await _unitOfWork.CommitAsync(token);
+
+                return _mapper.Map<UserDto>(mappedUser);
             }
             catch (Exception e)
             {
