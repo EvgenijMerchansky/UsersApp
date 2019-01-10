@@ -22,8 +22,6 @@ namespace UsersApp.Tests.BLL.Services
 {
     public class UserServiceTests
     {
-        private readonly IUserService _userService = A.Fake<IUserService>();
-
         private readonly ILogger<UserService> _logger = A.Fake<ILogger<UserService>>();
 
         private readonly IMapper _mapper;

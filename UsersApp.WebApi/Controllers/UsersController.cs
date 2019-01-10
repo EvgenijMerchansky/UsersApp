@@ -32,6 +32,9 @@ namespace UsersApp.WebApi.Controllers
 
         /// <summary>Get existing user</summary>
         /// <type>GET</type>
+        /// <param name="getUser">
+        /// <see cref="GetUserDto"/>
+        /// </param>
         /// <example>api/Users/5</example>
         /// <response code="200">Success</response>
         /// <response code="400">If user not found</response>
@@ -47,19 +50,28 @@ namespace UsersApp.WebApi.Controllers
 
         /// <summary>Create new user</summary>
         /// <type>POST</type>
+        /// <param name="createUser">
+        /// <see cref="CreateUserDto"/>
+        /// </param>
         /// <example>api/Users</example>
         /// <response code="200">Success</response>
         /// <response code="400">If data in the request body is wrong</response>
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task Post([FromBody]CreateUserDto user)
+        public async Task Post([FromBody]CreateUserDto createUser)
         {
-            await _userService.CreateUserAsync(user);
+            await _userService.CreateUserAsync(createUser);
         }
 
         /// <summary>Update current user's data</summary>
         /// <type>PUT</type>
+        /// <param name="userId">
+        /// <see cref="GetUserDto"/>
+        /// </param>
+        /// <param name="updateUser">
+        /// <see cref="UpdateUserDto"/>
+        /// </param>
         /// <example>api/Users/5</example>
         /// <response code="200">Success</response>
         /// <response code="400">If data in the request body is wrong</response>
@@ -73,6 +85,9 @@ namespace UsersApp.WebApi.Controllers
 
         /// <summary>Delete existing user</summary>
         /// <type>DELETE</type>
+        /// <param name="deleteUser">
+        /// <see cref="DeleteUserDto"/>
+        /// </param>
         /// <example>api/Users/5</example>
         /// <response code="200">Success</response>
         /// <response code="400">If existing user not found</response>

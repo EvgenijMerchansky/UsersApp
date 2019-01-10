@@ -3,6 +3,7 @@
   <Rules AnalyzerId="System.Runtime.Analyzers" RuleNamespace="System.Runtime.Analyzers">
     <Rule Id="CS1591" Action="None" />
 	<Rule Id="CA2007" Action="None" />
+	<Rule Id="NU1701" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1101" Action="None" />
@@ -16,5 +17,6 @@
 	<Rule Id="SA1633" Action="None" />
 	<Rule Id="SA1642" Action="None" />
 	<Rule Id="SA1652" Action="None" />
+	<Rule Id="NU1701" Action="None" />
   </Rules>
 </RuleSet>
