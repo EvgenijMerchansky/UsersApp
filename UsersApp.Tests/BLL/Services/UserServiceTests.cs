@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UsersApp.BLL.Configurations;
-using UsersApp.BLL.Contracts;
 using UsersApp.BLL.DTOs.Users;
 using UsersApp.BLL.Services;
 using UsersApp.DAL;
@@ -86,10 +85,15 @@ namespace UsersApp.Tests.BLL.Services
         public async Task GetAllUsers_ValidData_ReturnsEmptyList()
         {
             // Arrange
+            List<User> empty = new List<User>();
+
             UserService userService = new UserService(
                 _logger,
                 _mapper,
                 _unitOfWork);
+
+            A.CallTo(() => _unitOfWork.UserRepository.GetAll(A<CancellationToken>._))
+                .ReturnsLazily(() => empty);
 
             // Act
             IEnumerable<UserDto> results = await userService.GetAllUsersAsync();
