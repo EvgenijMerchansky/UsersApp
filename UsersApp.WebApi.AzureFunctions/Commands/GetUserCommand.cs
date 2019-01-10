@@ -15,6 +15,6 @@ namespace UsersApp.WebApi.AzureFunctions.Commands
 
         public string LastName { get; set; }
 
-        public List<ProductDto> Products { get; set; }
+        public List<ProductDto> Products { get; private set; }
     }
 }

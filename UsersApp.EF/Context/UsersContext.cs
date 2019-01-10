@@ -5,14 +5,14 @@ namespace UsersApp.EF.Context
 {
     public class UsersContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-
-        public DbSet<Product> Products { get; set; }
-
         public UsersContext(DbContextOptions<UsersContext> options)
             : base(options)
         {
         }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

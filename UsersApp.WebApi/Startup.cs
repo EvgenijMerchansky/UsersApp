@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
+using System.Reflection;
 using UsersApp.BLL.Configurations;
 using UsersApp.BLL.Contracts;
 using UsersApp.BLL.Services;
@@ -53,7 +56,33 @@ namespace UsersApp.WebApi
 
             services.AddSwaggerGen(x =>
             {
-                x.SwaggerDoc("v1", new Info { Title = "UsersApp public API", Version = "v1" });
+                x.SwaggerDoc(
+                    "v1",
+#pragma warning disable SA1118 // multiple lines
+                    new Info
+                    {
+                        Version = "v1",
+                        Title = "UsersApp public API",
+                        Description = "Playground - UsersApp(Web.Api)",
+                        TermsOfService = "None",
+                        Contact = new Contact
+                        {
+                            Name = "Eugene Merchansky",
+                            Email = "ymerc@softserveinc.com",
+                            Url = "https://github.com/EvgenijMerchansky/UsersApp"
+                        },
+                        License = new License
+                        {
+                            Name = "MIT License",
+                            Url = "https://github.com/EvgenijMerchansky/UsersApp/blob/master/LICENSE"
+                        }
+                    });
+#pragma warning restore SA1118 // end
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                x.IncludeXmlComments(xmlPath);
+
                 x.SchemaFilter<FluentValidationRules>();
             });
 
@@ -85,7 +114,7 @@ namespace UsersApp.WebApi
 
             app.UseSwaggerUI(x =>
             {
-                x.SwaggerEndpoint("/swagger/v1/swagger.json", "UsersApp API (v1).");
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "UsersApp API V1.");
             });
 
             app.UseCors("AllowAllOrigins");

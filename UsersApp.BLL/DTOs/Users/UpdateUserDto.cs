@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace UsersApp.BLL.DTOs.Users
+﻿namespace UsersApp.BLL.DTOs.Users
 {
     public class UpdateUserDto
     {

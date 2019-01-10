@@ -35,7 +35,7 @@ namespace UsersApp.WebApi.Controllers
         /// <example>api/Users/5</example>
         /// <response code="200">Success</response>
         /// <response code="400">If user not found</response>
-        [HttpGet("{id}")]
+        [HttpGet("{Id}")]
         [ProducesResponseType(typeof(UserDto), 200)]
         [ProducesResponseType(400)]
         public async Task<ActionResult<UserDto>> Get([FromRoute]GetUserDto getUser)
@@ -51,7 +51,7 @@ namespace UsersApp.WebApi.Controllers
         /// <response code="200">Success</response>
         /// <response code="400">If data in the request body is wrong</response>
         [HttpPost]
-        [ProducesResponseType(typeof(IActionResult), 200)]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task Post([FromBody]CreateUserDto user)
         {
@@ -63,8 +63,8 @@ namespace UsersApp.WebApi.Controllers
         /// <example>api/Users/5</example>
         /// <response code="200">Success</response>
         /// <response code="400">If data in the request body is wrong</response>
-        [HttpPut("{id}")]
-        [ProducesResponseType(typeof(IActionResult), 200)]
+        [HttpPut("{Id}")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task Put([FromRoute]GetUserDto userId, [FromBody]UpdateUserDto updateUser)
         {
@@ -76,7 +76,7 @@ namespace UsersApp.WebApi.Controllers
         /// <example>api/Users/5</example>
         /// <response code="200">Success</response>
         /// <response code="400">If existing user not found</response>
-        [HttpDelete("{id}")]
+        [HttpDelete("{Id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task Delete([FromRoute]DeleteUserDto deleteUser)

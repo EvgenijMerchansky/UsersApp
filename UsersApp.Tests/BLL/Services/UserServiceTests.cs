@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using UsersApp.BLL.Configurations;
 using UsersApp.BLL.Contracts;
-using UsersApp.BLL.DTOs.Products;
 using UsersApp.BLL.DTOs.Users;
 using UsersApp.BLL.Services;
 using UsersApp.DAL;
@@ -85,19 +84,6 @@ namespace UsersApp.Tests.BLL.Services
             mappedUsers.WithDeepEqual(results).Assert();
         }
 
-        private class ProductDtoComparer : IEqualityComparer<ProductDto>
-        {
-            public bool Equals(ProductDto x, ProductDto y)
-            {
-                return x.Description == x.Description;
-            }
-
-            public int GetHashCode(ProductDto obj)
-            {
-                return obj.GetHashCode();
-            }
-        }
-
         [Fact]
         public async Task GetAllUsers_ValidData_ReturnsEmptyList()
         {
@@ -117,9 +103,9 @@ namespace UsersApp.Tests.BLL.Services
         [Fact]
         public async Task GetUserById_ValidModel_ReturnsSuccess()
         {
+            // Arrange
             User user = _fixture.Create<User>();
 
-            // Arrange
             UserService userService = new UserService(
                 _logger,
                 _mapper,
@@ -139,7 +125,7 @@ namespace UsersApp.Tests.BLL.Services
         }
 
         [Fact]
-        public async Task GetUserById_ValidModel_ReturnsNull()
+        public async Task GetUserById_NotExistUser_ReturnsNull()
         {
             // Arrange
             User user = _fixture.Create<User>();
@@ -151,7 +137,7 @@ namespace UsersApp.Tests.BLL.Services
                 _unitOfWork);
 
             A.CallTo(() => _unitOfWork.UserRepository.GetAsync(A<int>._, A<CancellationToken>._))
-                .ReturnsLazily(() => user);
+                .Returns((User)null);
 
             getUser.Id = user.Id;
 

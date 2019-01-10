@@ -33,7 +33,10 @@ namespace UsersApp.WebApi.Middlewares
 
             /*if (exception is NotFoundException) code = HttpStatusCode.NotFound;
             else if (exception is UnauthorizedException) code = HttpStatusCode.Unauthorized;*/
-            if (exception is Exception) code = HttpStatusCode.BadRequest;
+            if (exception is Exception)
+            {
+                code = HttpStatusCode.BadRequest;
+            }
 
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";
