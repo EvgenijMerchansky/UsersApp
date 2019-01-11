@@ -1,11 +1,11 @@
-﻿namespace UsersApp.EF.Repositories
+﻿namespace UsersApp.DAL.EF.Repositories
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using UsersApp.DAL;
+    using UsersApp.DAL.EF.Context;
     using UsersApp.DAL.Models;
-    using UsersApp.EF.Context;
 
     public class UserRepository : BaseRepository<int, User, UsersContext>, IUserRepository
     {

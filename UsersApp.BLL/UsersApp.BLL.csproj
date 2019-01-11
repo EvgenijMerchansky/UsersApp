@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UsersApp.EF\UsersApp.EF.csproj" />
+    <ProjectReference Include="..\UsersApp.EF\UsersApp.DAL.EF.csproj" />
   </ItemGroup>
 
 </Project>

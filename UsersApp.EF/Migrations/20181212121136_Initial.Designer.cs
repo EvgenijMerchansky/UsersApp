@@ -3,10 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using UsersApp.EF.Context;
+using UsersApp.DAL.EF.Context;
 
-namespace UsersApp.EF.Migrations
+namespace UsersApp.DAL.EF.Migrations
 {
     [DbContext(typeof(UsersContext))]
     [Migration("20181212121136_Initial")]
@@ -20,7 +19,7 @@ namespace UsersApp.EF.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("UsersApp.EF.Models.Product", b =>
+            modelBuilder.Entity("UsersApp.DAL.EF.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,7 +38,7 @@ namespace UsersApp.EF.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("UsersApp.EF.Models.User", b =>
+            modelBuilder.Entity("UsersApp.DAL.EF.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,9 +61,9 @@ namespace UsersApp.EF.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("UsersApp.EF.Models.Product", b =>
+            modelBuilder.Entity("UsersApp.DAL.EF.Models.Product", b =>
                 {
-                    b.HasOne("UsersApp.EF.Models.User")
+                    b.HasOne("UsersApp.DAL.EF.Models.User")
                         .WithMany("Products")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

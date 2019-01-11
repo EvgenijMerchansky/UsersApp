@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using UsersApp.DAL;
 
-namespace UsersApp.EF.Repositories
+namespace UsersApp.DAL.EF.Repositories
 {
     public class BaseRepository<TId, TEntity, TContext> : IGenericRepository<TId, TEntity>
         where TEntity : class, new()

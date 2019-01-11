@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.WebApi", "UsersApp.WebApi\UsersApp.WebApi.csproj", "{1B941035-B01A-46F3-B155-A0D1D2C3B2F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.EF", "UsersApp.EF\UsersApp.EF.csproj", "{3B04C709-EDB3-411D-939E-437960C2E9D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.DAL.EF", "UsersApp.EF\UsersApp.DAL.EF.csproj", "{3B04C709-EDB3-411D-939E-437960C2E9D8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.DAL", "UsersApp.DAL\UsersApp.DAL.csproj", "{0FCAA31C-7782-47E7-BE3F-D7AD24C53615}"
 EndProject
@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rulesets", "Rulesets", "{DE
 		..\..\[SS]\Vivint.IO.SalesPlatform.PoC\Rulesets\Rules.ruleset = ..\..\[SS]\Vivint.IO.SalesPlatform.PoC\Rulesets\Rules.ruleset
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersApp.WebApi.AzureFunctions", "UsersApp.WebApi.AzureFunctions\UsersApp.WebApi.AzureFunctions.csproj", "{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.WebApi.AzureFunctions", "UsersApp.WebApi.AzureFunctions\UsersApp.WebApi.AzureFunctions.csproj", "{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

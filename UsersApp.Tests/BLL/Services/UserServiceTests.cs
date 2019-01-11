@@ -1,24 +1,24 @@
-﻿using AutoFixture;
-using AutoMapper;
-using DeepEqual.Syntax;
-using FakeItEasy;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using UsersApp.BLL.Configurations;
-using UsersApp.BLL.DTOs.Users;
-using UsersApp.BLL.Services;
-using UsersApp.DAL;
-using UsersApp.DAL.Models;
-using UsersApp.EF.Context;
-using UsersApp.EF.Repositories;
-using Xunit;
-
-namespace UsersApp.Tests.BLL.Services
+﻿namespace UsersApp.Tests.BLL.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using AutoFixture;
+    using AutoMapper;
+    using DeepEqual.Syntax;
+    using FakeItEasy;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
+    using UsersApp.BLL.Configurations;
+    using UsersApp.BLL.DTOs.Users;
+    using UsersApp.BLL.Services;
+    using UsersApp.DAL;
+    using UsersApp.DAL.EF.Context;
+    using UsersApp.DAL.EF.Repositories;
+    using UsersApp.DAL.Models;
+    using Xunit;
+
     public class UserServiceTests
     {
         private readonly ILogger<UserService> _logger = A.Fake<ILogger<UserService>>();

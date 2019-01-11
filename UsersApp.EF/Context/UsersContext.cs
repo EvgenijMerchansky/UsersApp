@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UsersApp.DAL.Models;
 
-namespace UsersApp.EF.Context
+namespace UsersApp.DAL.EF.Context
 {
     public class UsersContext : DbContext
     {

@@ -15,8 +15,8 @@ using UsersApp.BLL.Contracts;
 using UsersApp.BLL.Services;
 using UsersApp.BLL.Validation;
 using UsersApp.DAL;
-using UsersApp.EF.Context;
-using UsersApp.EF.Repositories;
+using UsersApp.DAL.EF.Context;
+using UsersApp.DAL.EF.Repositories;
 using UsersApp.WebApi.Configurations;
 using UsersApp.WebApi.Middlewares;
 using UsersApp.WebApi.Validation;
@@ -100,7 +100,7 @@ namespace UsersApp.WebApi
             services.AddDbContext<UsersContext>(
             options => options.UseSqlServer(
                 connectionConfig.DefaultConnection,
-                builder => builder.MigrationsAssembly("UsersApp.EF")));
+                builder => builder.MigrationsAssembly("UsersApp.DAL.EF")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

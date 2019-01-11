@@ -16,6 +16,11 @@ namespace UsersApp.BLL.Validation
                 .NotNull()
                 .NotEmpty()
                 .MaximumLength(300);
+            RuleFor(x => x.Email)
+                .NotNull()
+                .NotEmpty()
+                .MaximumLength(300)
+                .EmailAddress();
         }
     }
 }

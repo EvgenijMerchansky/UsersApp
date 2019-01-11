@@ -1,9 +1,9 @@
-﻿namespace UsersApp.EF.Repositories
+﻿namespace UsersApp.DAL.EF.Repositories
 {
     using System.Threading;
     using System.Threading.Tasks;
     using UsersApp.DAL;
-    using UsersApp.EF.Context;
+    using UsersApp.DAL.EF.Context;
 
     public class UnitOfWork : IUnitOfWork
     {

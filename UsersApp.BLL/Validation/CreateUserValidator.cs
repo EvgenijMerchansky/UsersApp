@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using UsersApp.BLL.Contracts;
 using UsersApp.BLL.DTOs.Users;
 
 namespace UsersApp.BLL.Validation
