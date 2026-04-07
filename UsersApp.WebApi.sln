@@ -5,13 +5,20 @@ VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.WebApi", "UsersApp.WebApi\UsersApp.WebApi.csproj", "{1B941035-B01A-46F3-B155-A0D1D2C3B2F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.EF", "UsersApp.EF\UsersApp.EF.csproj", "{3B04C709-EDB3-411D-939E-437960C2E9D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.DAL.EF", "UsersApp.EF\UsersApp.DAL.EF.csproj", "{3B04C709-EDB3-411D-939E-437960C2E9D8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.DAL", "UsersApp.DAL\UsersApp.DAL.csproj", "{0FCAA31C-7782-47E7-BE3F-D7AD24C53615}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.Tests", "UsersApp.Tests\UsersApp.Tests.csproj", "{9C99E004-6B3C-4B0D-9B63-B77EEB42E695}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.BLL", "UsersApp.BLL\UsersApp.BLL.csproj", "{24453BA8-3C3A-42B2-8990-DE0EE044E731}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rulesets", "Rulesets", "{DE85CF3F-C491-499E-A153-E1BFCD347B7D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\[SS]\Vivint.IO.SalesPlatform.PoC\Rulesets\Rules.ruleset = ..\..\[SS]\Vivint.IO.SalesPlatform.PoC\Rulesets\Rules.ruleset
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersApp.WebApi.AzureFunctions", "UsersApp.WebApi.AzureFunctions\UsersApp.WebApi.AzureFunctions.csproj", "{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +46,10 @@ Global
 		{24453BA8-3C3A-42B2-8990-DE0EE044E731}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24453BA8-3C3A-42B2-8990-DE0EE044E731}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24453BA8-3C3A-42B2-8990-DE0EE044E731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E2A28B7-F14E-46CC-B3E7-70F3E428393C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

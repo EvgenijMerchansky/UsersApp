@@ -2,14 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using UsersApp.DAL.EF.Context;
 
 namespace UsersApp.DAL.EF.Migrations
 {
     [DbContext(typeof(UsersContext))]
-    partial class UsersContextModelSnapshot : ModelSnapshot
+    [Migration("20181220082817_Update_data_flow")]
+    partial class Update_data_flow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -17,7 +19,7 @@ namespace UsersApp.DAL.EF.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("UsersApp.DAL.Models.Product", b =>
+            modelBuilder.Entity("UsersApp.DAL.EF.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,7 +38,7 @@ namespace UsersApp.DAL.EF.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("UsersApp.DAL.Models.User", b =>
+            modelBuilder.Entity("UsersApp.DAL.EF.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,28 +56,17 @@ namespace UsersApp.DAL.EF.Migrations
                         .IsRequired()
                         .HasMaxLength(300);
 
-                    b.Property<int?>("ProductId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("UsersApp.DAL.Models.Product", b =>
+            modelBuilder.Entity("UsersApp.DAL.EF.Models.Product", b =>
                 {
-                    b.HasOne("UsersApp.DAL.Models.User")
+                    b.HasOne("UsersApp.DAL.EF.Models.User")
                         .WithMany("Products")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("UsersApp.DAL.Models.User", b =>
-                {
-                    b.HasOne("UsersApp.DAL.Models.Product")
-                        .WithMany("Users")
-                        .HasForeignKey("ProductId");
                 });
 #pragma warning restore 612, 618
         }
