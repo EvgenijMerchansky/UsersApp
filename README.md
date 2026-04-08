@@ -1,2 +1,2 @@
-# UsersApp
-test application
+# Users.Example
+Description will be added soon
