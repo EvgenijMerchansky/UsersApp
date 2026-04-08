@@ -14,9 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\DBLayer\Users.Example.DBLayer.csproj" />
-    <ProjectReference Include="..\src\Shared\Models\Users.Example.Models.csproj" />
-    <ProjectReference Include="..\src\Shared\Services\Users.Example.Services.csproj" />
+	<ProjectReference Include="..\DBLayer\Users.Example.DBLayer.csproj" />
+	<ProjectReference Include="..\Shared\Services\Users.Example.Services.csproj" />
+	<ProjectReference Include="..\Shared\Models\Users.Example.Models.csproj" />
+    <ProjectReference Include="..\Shared\Services\Users.Example.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
