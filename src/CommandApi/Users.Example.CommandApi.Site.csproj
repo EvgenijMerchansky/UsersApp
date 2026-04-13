@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>cb3acc9b-252b-4937-a1a6-d00cd0a36809</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,10 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+	<ProjectReference Include="..\CommandService\Users.Example.CommandService.csproj" />
 	<ProjectReference Include="..\DBLayer\Users.Example.DBLayer.csproj" />
+	<ProjectReference Include="..\QueryService\Users.Example.QueryService.csproj" />
 	<ProjectReference Include="..\Shared\Services\Users.Example.Services.csproj" />
 	<ProjectReference Include="..\Shared\Models\Users.Example.Models.csproj" />
     <ProjectReference Include="..\Shared\Services\Users.Example.Services.csproj" />
+    <ProjectReference Include="..\Shared\Utilities\Users.Example.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

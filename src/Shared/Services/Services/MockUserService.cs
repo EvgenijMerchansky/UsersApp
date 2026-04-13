@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Users.Example.Models.Dtos.Products;
 using Users.Example.Models.Dtos.Users;
 
 namespace Users.Example.Services.Services;
@@ -13,24 +12,7 @@ public class MockUserService : IMockUserService
         Id = 1,
         FirstName = "John",
         LastName = "Smith",
-        Email = "john.smith@email.com",
-        Products = new List<ProductDto>
-        {
-            new()
-            {
-                Id = 1,
-                UserId = 1,
-                Name = "Product 1",
-                Description = "Description of product 1"
-            },
-            new()
-            {
-                Id = 2,
-                UserId = 1,
-                Name = "Product 2",
-                Description = "Description of product 2"
-            }
-        }
+        Email = "john.smith@email.com"
     };
 
     public async Task<IEnumerable<UserDto>> GetAll(CancellationToken ct)

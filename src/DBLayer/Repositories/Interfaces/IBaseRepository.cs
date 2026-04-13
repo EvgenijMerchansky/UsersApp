@@ -11,4 +11,5 @@ public interface IBaseRepository<TId, TEntity> where TId : struct where TEntity 
     Task Create(TEntity entity, CancellationToken ct = default);
     void Update(TId id, TEntity entity);
     Task Delete(TId id, CancellationToken ct = default);
+    Task CommitAsync(CancellationToken ct = default);
 }

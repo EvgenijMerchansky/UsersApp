@@ -26,5 +26,7 @@ public class BaseRepository<TId, TEntity, TContext>(TContext context) : IBaseRep
         context.Set<TEntity>().Remove(entity);
     }
 
+    public virtual Task CommitAsync(CancellationToken ct) => context.SaveChangesAsync(ct);
+
     public void Dispose() => context.Dispose();
 }

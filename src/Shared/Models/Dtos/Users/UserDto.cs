@@ -1,6 +1,4 @@
-﻿using Users.Example.Models.Dtos.Products;
-
-namespace Users.Example.Models.Dtos.Users;
+﻿namespace Users.Example.Models.Dtos.Users;
 
 public class UserDto
 {
@@ -8,5 +6,4 @@ public class UserDto
     public string Email { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public IEnumerable<ProductDto> Products { get; set; }
 }
