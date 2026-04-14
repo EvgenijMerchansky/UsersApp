@@ -104,6 +104,7 @@ Users.Example/
 │   │       ├── Extensions/
 │   │       │   └── ServicesExtension.cs
 │   │       ├── Validators/
+│   │       │   ├── UpdateUserDtoValidator.cs
 │   │       │   ├── CreateUserDtoValidator.cs
 │   │       │   └── UserDtoValidator.cs
 │   │       ├── appsettings.json
@@ -147,6 +148,7 @@ Users.Example/
 │   │   ├── Users.Example.Models/
 │   │   │   └── Dtos/
 │   │   │       └── Users/
+│   │   │           ├── UpdateUserDto.cs
 │   │   │           ├── CreateUserDto.cs
 │   │   │           └── UserDto.cs
 │   │   │
