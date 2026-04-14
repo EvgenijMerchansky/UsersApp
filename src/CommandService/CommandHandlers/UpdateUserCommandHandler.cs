@@ -8,6 +8,6 @@ public class UpdateUserCommandHandler(IUserService userService) : IRequestHandle
 {
     public async Task Handle(UpdateUserCommand command, CancellationToken ct = default)
     {
-        await userService.Update(command.UserId, command.User, ct);
+        await userService.Update(command.User, ct);
     }
 }

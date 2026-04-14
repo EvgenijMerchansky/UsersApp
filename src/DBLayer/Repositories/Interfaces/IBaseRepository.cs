@@ -9,7 +9,7 @@ public interface IBaseRepository<TId, TEntity> where TId : struct where TEntity 
     Task<IEnumerable<TEntity>> GetAll(CancellationToken ct = default);
     Task<TEntity> Get(TId id, CancellationToken ct = default);
     Task Create(TEntity entity, CancellationToken ct = default);
-    void Update(TId id, TEntity entity);
+    Task Update(TId id, TEntity entity, CancellationToken ct = default);
     Task Delete(TId id, CancellationToken ct = default);
     Task CommitAsync(CancellationToken ct = default);
 }

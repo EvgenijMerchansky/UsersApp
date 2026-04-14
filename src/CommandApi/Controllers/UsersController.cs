@@ -41,17 +41,17 @@ public class UsersController(ILogger<UsersController> logger, IServiceProvider s
         return Ok();
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, [FromBody] UserDto userDto)
+    [HttpPut]
+    public async Task<IActionResult> Put([FromBody] UpdateUserDto updateUserDto)
     {
-        var errors = ValidateSingle(userDto);
+        var errors = ValidateSingle(updateUserDto);
         if (errors.Count > 0)
         {
             logger.LogInformation("Method {caller}; validation errors: {errors}.", nameof(Put), string.Join(",", errors));
             return BadRequest(errors);
         }
 
-        await mediator.Send(new UpdateUserCommand(id, userDto));
+        await mediator.Send(new UpdateUserCommand(updateUserDto));
         return Ok();
     }
 

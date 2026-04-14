@@ -91,9 +91,6 @@ Users.Example/
 │       ├── sqlserver.env.example
 │       └── users-api.env.example
 │
-├── secrets/
-│   └── development.example.ps1
-│
 ├── src/
 │   │
 │   ├── Client/

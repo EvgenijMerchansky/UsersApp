@@ -3,14 +3,10 @@ using Users.Example.Models.Dtos.Users;
 
 namespace Users.Example.CommandApi.Site.Validators;
 
-public class UserDtoValidator : AbstractValidator<UserDto>
+public class UpdateUserDtoValidator : AbstractValidator<UpdateUserDto>
 {
-    public UserDtoValidator()
+    public UpdateUserDtoValidator()
     {
-        RuleFor(model => model.Id)
-            .NotEmpty().WithMessage("UserId is required.")
-            .GreaterThan(0).WithMessage("UserId should be greater than 0.");
-
         RuleFor(model => model.FirstName)
             .NotEmpty().WithMessage("FirstName is required.")
             .MaximumLength(100).WithMessage("FirstName must not exceed 100 characters.");

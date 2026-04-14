@@ -28,9 +28,9 @@ public class UserService(IMapper mapper, IUserRepository userRepository) : IUser
         await userRepository.CommitAsync(ct);
     }
 
-    public async Task Update(int id, UserDto userDto, CancellationToken ct)
+    public async Task Update(UpdateUserDto updateUserDto, CancellationToken ct)
     {
-        userRepository.Update(id, mapper.Map<User>(userDto));
+        await userRepository.Update(updateUserDto.Id, mapper.Map<User>(updateUserDto), ct);
         await userRepository.CommitAsync(ct);
     }
 
@@ -46,6 +46,6 @@ public interface IUserService
     Task<IEnumerable<UserDto>> GetAll(CancellationToken ct = default);
     Task<UserDto> Get(int id, CancellationToken ct = default);
     Task Create(CreateUserDto createUserDto, CancellationToken ct = default);
-    Task Update(int id, UserDto userDto, CancellationToken ct = default);
+    Task Update(UpdateUserDto updateUserDto, CancellationToken ct = default);
     Task Delete(int id, CancellationToken ct = default);
 }

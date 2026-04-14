@@ -17,10 +17,24 @@ public class BaseRepository<TId, TEntity, TContext>(TContext context) : IBaseRep
     public virtual async Task<TEntity> Get(TId id, CancellationToken ct) => await context.Set<TEntity>().FindAsync(id, ct);
 
     public virtual async Task Create(TEntity entity, CancellationToken ct) => await context.Set<TEntity>().AddAsync(entity, ct);
-       
-    public virtual void Update(TId id, TEntity entity) => context.Set<TEntity>().Update(entity);
 
-    public virtual async Task Delete(TId id,CancellationToken ct)
+    public virtual async Task Update(TId id, TEntity entity, CancellationToken ct)
+    {
+        var existingEntity = await context.Set<TEntity>().FindAsync([id], ct);
+        if (existingEntity is null) return;
+
+        var existingEntry = context.Entry(existingEntity);
+        var incomingEntry = context.Entry(entity);
+
+        foreach (var property in existingEntry.Properties)
+        {
+            if (property.Metadata.IsKey()) continue;
+
+            property.CurrentValue = incomingEntry.Property(property.Metadata.Name).CurrentValue;
+        }
+    }
+
+    public virtual async Task Delete(TId id, CancellationToken ct)
     {
         TEntity entity = await context.FindAsync<TEntity>(id, ct);
         context.Set<TEntity>().Remove(entity);

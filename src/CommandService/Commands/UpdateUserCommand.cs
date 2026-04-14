@@ -3,9 +3,8 @@ using Users.Example.Models.Dtos.Users;
 
 namespace Users.Example.CommandService.Commands
 {
-    public class UpdateUserCommand(int userId, UserDto userDto) : IRequest
+    public class UpdateUserCommand(UpdateUserDto updateUserDto) : IRequest
     {
-        public int UserId { get; set; } = userId;
-        public UserDto User { get; set; } = userDto;
+        public UpdateUserDto User { get; set; } = updateUserDto;
     }
 }
