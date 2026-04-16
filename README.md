@@ -209,12 +209,12 @@ This allows keeping real connection strings out of tracked configuration files.
 
 - **Framework**: ASP.NET Core Web API
 - **Language**: C#
-- **Runtime**: .NET 8
+- **Runtime**: .NET 10
 - **ORM**: Entity Framework Core
 - **Validation**: FluentValidation
 - **Mediator**: MediatR
 - **Object Mapping**: AutoMapper
-- **Database**: SQL Server / LocalDB
+- **Database**: SQL Server
 - **Containerization**: Docker, Docker Compose
 
 ## Request Flow
